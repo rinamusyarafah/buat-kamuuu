@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -49,16 +48,19 @@
         h1 {
             font-size: 2.5em;
             font-weight: 600;
-            text-shadow: 0 0 20px cyan;
+            color: cyan;
+            text-shadow: 0 0 10px cyan, 0 0 20px cyan;
             animation: glow 1.5s infinite alternate;
         }
 
         p {
             font-size: 1.2em;
             margin: 20px 0;
-            opacity: 1;
-            transform: translateY(0);
+            opacity: 0;
+            transform: translateY(20px);
             transition: opacity 1s ease-out, transform 1s ease-out;
+            color: white;
+            text-shadow: 0 0 5px cyan;
         }
 
         .show {
@@ -67,8 +69,8 @@
         }
 
         @keyframes glow {
-            from { text-shadow: 0 0 10px cyan; }
-            to { text-shadow: 0 0 25px cyan; }
+            from { text-shadow: 0 0 5px cyan, 0 0 10px cyan; }
+            to { text-shadow: 0 0 15px cyan, 0 0 30px cyan; }
         }
 
         @media screen and (max-width: 768px) {
@@ -109,18 +111,22 @@
 
     </div>
 
-    <script>
+     <script>
         // Efek Matrix (Kode Hacking)
         const canvas = document.getElementById("matrix");
         const ctx = canvas.getContext("2d");
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener("resize", resizeCanvas);
 
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         const matrix = letters.split("");
-        const fontSize = 16;
-        const columns = canvas.width / fontSize;
+        const fontSize = 14;
+        const columns = Math.floor(canvas.width / fontSize);
         const drops = Array(columns).fill(1);
 
         function drawMatrix() {
