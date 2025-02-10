@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Kamu</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+            height: 100vh;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            font-weight: 600;
+            text-shadow: 0 0 20px cyan;
+            animation: glow 1.5s infinite alternate;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin: 20px 0;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px cyan; }
+            to { text-shadow: 0 0 25px cyan; }
+        }
+
+        @media screen and (max-width: 768px) {
+            h1 { font-size: 2em; }
+            p { font-size: 1em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <canvas id="matrix"></canvas>
+    </div>
+    <div class="container">
+        <h1>Hallooo</h1>
+        <p>Ciee kenapa buka link ini?</p>
+        <p>Cuman mau bilang...</p>
+        <p>Semangat yaa, jangan nyerah </p>
+        <p>Kamu kan kuat </p>
+        <p>Kamu itu hebat, seriusan!</p>
+        <p>Kamu itu luar biasa, gak ada duanya!</p>
+        <p>Inget, hidup ini perjalanan, bukan perlombaan! Santai aja, tapi tetap menyala xixixi</p>
+	<p>Capek? Gapapa, istirahat bentar, tapi jangan berhenti.</p>
+        <p>Jangan bandingin hidupmu sama orang lain, kita semua punya jalan masing-masing.</p>
+        <p>Kegagalan itu bukan akhir, itu cuma jalan memutar menuju sukses.</p>
+        <p>Kamu lebih kuat dari yang kamu kira. Percaya deh.</p>
+        <p>Kalau hari ini berat, inget aja: besok bisa jadi lebih baik.</p>
+        <p>Hidup ini kayak kode program, kadang error, tapi bisa di-debug.</p>
+        <p>Gagal? Ulang lagi. Kayak coding, selalu ada solusi.</p>
+        <p>Kalau gak nyoba, mana tau berhasil? ya nggak ? iyalah iyakann</p>
+        <p>Aku percaya kamu bisa. Sekarang giliran kamu percaya sama diri sendiri.</p>
+        <p>You’re not behind, you’re on your own timeline. Keep going.</p>
+        <p>anjayy sok bahasa Inggris wkwk</p>
+ 	<p>Ya pokoknya gitu deh</p>
+        <p>Gimana gimana keren gak gw bikin kayak gini hehe</p>
+        <p>hmmm jadi kepo siapa aja yang buka link gw wkwk</p>
+
+ 	<h1>dari gw rinaa yang baik hati dan tidak sombong mwhehehe >_< </h1>
+
+    </div>
+
+    <script>
+        // Efek Matrix (Kode Hacking)
+        const canvas = document.getElementById("matrix");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        const matrix = letters.split("");
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(columns).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "cyan";
+            ctx.font = fontSize + "px monospace";
+
+            drops.forEach((y, index) => {
+                const text = matrix[Math.floor(Math.random() * matrix.length)];
+                ctx.fillText(text, index * fontSize, y * fontSize);
+
+                if (y * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[index] = 0;
+                }
+                drops[index]++;
+            });
+        }
+
+        setInterval(drawMatrix, 50);
+
+        // Efek Scroll Teks
+        const paragraphs = document.querySelectorAll("p");
+
+        if ("IntersectionObserver" in window) {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            paragraphs.forEach(p => observer.observe(p));
+        } else {
+            paragraphs.forEach(p => p.classList.add("show"));
+        }
+
+        // Auto-scroll smooth
+        function autoScroll() {
+            let scrollSpeed = 1;
+            function scrollStep() {
+                if (window.innerHeight + window.scrollY >= document.body.offsetHeight) return;
+                window.scrollBy(0, scrollSpeed);
+                setTimeout(scrollStep, 50);
+            }
+            scrollStep();
+        }
+
+        setTimeout(autoScroll, 2000); // Mulai auto-scroll setelah 2 detik
+    </script>
+</body>
+</html>
